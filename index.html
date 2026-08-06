@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Greenhouse Dashboard</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- ================= HEADER ================= -->
+
+   <header>
+
+<div>
+
+<h2>
+
+🌿 Greenhouse
+
+</h2>
+
+<p>
+
+ITERA Smart Farming
+
+</p>
+
+</div>
+
+<div class="connection">
+
+<span class="dot"></span>
+
+Online
+
+</div>
+
+</header>
+
+    <!-- ================= CARD ================= -->
+
+    <section class="cards">
+
+        <div class="card">
+
+            <i class="fa-solid fa-temperature-half"></i>
+
+            <h3>Temperature</h3>
+
+            <h1 id="temp">0 °C</h1>
+
+        </div>
+
+        <div class="card">
+
+            <i class="fa-solid fa-droplet"></i>
+
+            <h3>Humidity</h3>
+
+            <h1 id="hum">72%</h1>
+
+        </div>
+
+        <div class="card">
+
+            <i id="fanIcon" class="fa-solid fa-fan"></i>
+
+            <h3>Blower</h3>
+
+            <h1 id="blowerStatus">OFF</h1>
+
+        </div>
+
+        <div class="card">
+
+            <i class="fa-solid fa-wifi"></i>
+
+            <h3>Connection</h3>
+
+            <h1>Online</h1>
+
+        </div>
+
+    </section>
+
+    <!-- ================= CONTROL ================= -->
+
+    <section class="control">
+
+        <h2>
+
+            Relay Control
+
+        </h2>
+
+        <label class="switch">
+
+            <input id="relaySwitch" type="checkbox">
+
+            <span class="slider"></span>
+
+        </label>
+
+    </section>
+
+    <!-- ================= CHART ================= -->
+
+    <section class="chart-container">
+
+        <div class="chart-card">
+
+            <h2>
+
+                Temperature
+
+            </h2>
+
+            <canvas id="tempChart"></canvas>
+
+        </div>
+
+        <div class="chart-card">
+
+            <h2>
+
+                Humidity
+
+            </h2>
+
+            <canvas id="humChart"></canvas>
+
+        </div>
+
+    </section>
+
+    <!-- ================= LOG ================= -->
+
+    <section class="log">
+
+        <h2>
+
+            Event Log
+
+        </h2>
+
+        <div id="eventLog">
+
+        </div>
+
+    </section>
+
+    <script src="js/app.js"></script>
+
+</div>    
+
+<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+<script src="js/mqtt.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,405 @@
+/* ===========================
+   RESET
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:#0f172a;
+
+    color:white;
+
+    margin:0;
+
+    display:flex;
+
+    justify-content:center;
+
+}
+
+/* ===========================
+   HEADER
+=========================== */
+
+header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:25px;
+
+}
+
+header h2{
+
+font-size:28px;
+
+}
+
+header p{
+
+margin-top:5px;
+
+color:#94a3b8;
+
+font-size:13px;
+
+}
+
+.logo{
+
+    font-size:30px;
+
+    font-weight:700;
+
+}
+
+.connection{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    background:#1e293b;
+
+    padding:10px 18px;
+
+    border-radius:30px;
+
+    border:1px solid #334155;
+
+}
+
+.dot{
+
+    width:12px;
+
+    height:12px;
+
+    border-radius:50%;
+
+    background:#22c55e;
+
+    box-shadow:0 0 10px #22c55e;
+
+}
+
+/* ===========================
+   CARD
+=========================== */
+
+.cards{
+
+display:flex;
+
+flex-direction:column;
+
+gap:18px;
+
+}
+
+.card{
+
+    background:#1e293b;
+
+    border:1px solid #334155;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    text-align:left;
+
+    transition:.3s;
+
+}
+
+.card{
+
+display:flex;
+
+flex-direction:column;
+
+gap:10px;
+
+}
+
+.card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.card i{
+
+    font-size:34px;
+
+    color:#22c55e;
+
+    margin-bottom:15px;
+
+}
+
+.card h3{
+
+    color:#94a3b8;
+
+    margin-bottom:15px;
+
+    font-weight:500;
+
+}
+
+.card h1{
+
+font-size:46px;
+
+font-weight:700;
+
+}
+
+/* ===========================
+   CONTROL
+=========================== */
+
+.control{
+
+background:#1e293b;
+
+border-radius:20px;
+
+padding:20px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin:20px 0;
+
+}
+
+/* Toggle */
+
+.switch{
+
+    position:relative;
+
+    display:inline-block;
+
+    width:80px;
+
+    height:42px;
+
+}
+
+.switch input{
+
+    display:none;
+
+}
+
+.slider{
+
+    position:absolute;
+
+    cursor:pointer;
+
+    top:0;
+
+    left:0;
+
+    right:0;
+
+    bottom:0;
+
+    background:#64748b;
+
+    border-radius:40px;
+
+    transition:.3s;
+
+}
+
+.slider::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:34px;
+
+    height:34px;
+
+    left:4px;
+
+    top:4px;
+
+    background:white;
+
+    border-radius:50%;
+
+    transition:.3s;
+
+}
+
+input:checked + .slider{
+
+    background:#22c55e;
+
+}
+
+input:checked + .slider::before{
+
+    transform:translateX(38px);
+
+}
+
+/* ===========================
+   CHART
+=========================== */
+
+.chart-container{
+
+display:flex;
+
+flex-direction:column;
+
+gap:20px;
+
+}
+
+
+.chart-card{
+
+    background:#1e293b;
+
+    border:1px solid #334155;
+
+    border-radius:18px;
+
+    padding:20px;
+
+}
+
+/* ===========================
+   EVENT LOG
+=========================== */
+
+.log{
+
+    background:#1e293b;
+
+    border:1px solid #334155;
+
+    border-radius:18px;
+
+    padding:20px;
+
+}
+
+#eventLog{
+
+    margin-top:15px;
+
+}
+
+#eventLog p{
+
+    padding:10px;
+
+    border-bottom:1px solid #334155;
+
+    color:#cbd5e1;
+
+}
+
+/* ===========================
+   FAN ANIMATION
+=========================== */
+
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:1000px){
+
+.cards{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+.chart-container{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+@media(max-width:600px){
+
+.cards{
+
+grid-template-columns:1fr;
+
+}
+
+header{
+
+flex-direction:column;
+
+gap:20px;
+
+}
+
+.control{
+
+flex-direction:column;
+
+gap:20px;
+
+}
+
+.logo{
+
+font-size:24px;
+
+}
+
+}
+
+/* ==========================
+   MOBILE CONTAINER
+========================== */
+
+body{
+
+    min-height:100vh;
+
+}
+
+.wrapper{
+
+    width:100%;
+
+    max-width:430px;
+
+    padding:18px;
+
+}
