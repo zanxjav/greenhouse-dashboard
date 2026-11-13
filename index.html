@@ -1,183 +1,657 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Greenhouse Dashboard</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <meta name="theme-color" content="#2e7d32">
 
-    <!-- Google Font -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="default"
+    >
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="Greenhouse"
+    >
+
     <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+        rel="apple-touch-icon"
+        href="icons/icon-192.png"
+    >
 
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- CSS -->
+
+<link
+    rel="stylesheet"
+    href="css/style.css?v=6"
+>
+
+
+<!-- ================= FONT AWESOME ================= -->
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+>
+
+
+<!-- ================= GOOGLE FONT ================= -->
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+>
+
+
+<!-- ================= CHART.JS ================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/chart.js"
+></script>
+
+
+<!-- ================= SHEETJS ================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"
+></script>
 
 </head>
 
 <body>
 
-<div class="wrapper">
+<!-- =====================================================
+     LOGIN PAGE
+====================================================== -->
 
-    <!-- ================= HEADER ================= -->
+<section
+    id="loginPage"
+    class="login-page"
+>
 
-   <header>
+    <div class="login-card">
 
-<div>
+        <div class="login-icon">
 
-<h2>
+            <i class="fa-solid fa-leaf"></i>
 
-🌿 Greenhouse
+        </div>
 
-</h2>
 
-<p>
+        <h1>
+            Greenhouse
+        </h1>
 
-ITERA Smart Farming
 
-</p>
+        <p>
+            ITERA Smart Farming
+        </p>
+
+
+        <form id="loginForm">
+
+            <!-- EMAIL -->
+
+            <div class="input-group">
+
+                <i class="fa-solid fa-envelope"></i>
+
+                <input
+                    type="email"
+                    id="emailInput"
+                    placeholder="Email"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="input-group">
+
+                <i class="fa-solid fa-lock"></i>
+
+                <input
+                    type="password"
+                    id="passwordInput"
+                    placeholder="Password"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+
+            <!-- LOGIN BUTTON -->
+
+            <button
+                type="submit"
+                id="loginButton"
+            >
+
+                <i class="fa-solid fa-right-to-bracket"></i>
+
+                <span>
+                    Login
+                </span>
+
+            </button>
+
+
+            <!-- LOGIN ERROR -->
+
+            <p id="loginError"></p>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MAIN DASHBOARD
+====================================================== -->
+
+<main class="wrapper">
+
+    <div id="dashboardPage">
+
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <header>
+
+            <div class="header-title">
+
+                <h2>
+                    🌿 Greenhouse
+                </h2>
+
+                <p>
+                    ITERA Smart Farming
+                </p>
+
+            </div>
+
+
+            <div class="connection">
+
+                <span class="dot"></span>
+
+                <span>
+                    Online
+                </span>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             SENSOR CARDS
+        ================================================== -->
+
+        <section class="cards">
+
+
+            <!-- TEMPERATURE -->
+
+            <div class="card">
+
+                <i
+                    class="fa-solid fa-temperature-half"
+                ></i>
+
+                <h3>
+                    Temperature
+                </h3>
+
+                <h1 id="temp">
+                    0 °C
+                </h1>
+
+            </div>
+
+
+
+            <!-- HUMIDITY -->
+
+            <div class="card">
+
+                <i
+                    class="fa-solid fa-droplet"
+                ></i>
+
+                <h3>
+                    Humidity
+                </h3>
+
+                <h1 id="hum">
+                    0 %
+                </h1>
+
+            </div>
+
+
+
+            <!-- BLOWER & HEATER -->
+
+            <div class="card status-dual-card">
+
+                <div class="status-subcard">
+
+                    <i
+                        id="fanIcon"
+                        class="fa-solid fa-fan"
+                    ></i>
+
+                    <h3>
+                        Blower
+                    </h3>
+
+                    <h1 id="blowerStatus">
+                        OFF
+                    </h1>
+
+                </div>
+
+                <div class="status-divider"></div>
+
+                <div class="status-subcard">
+
+                    <i
+                        id="heaterIcon"
+                        class="fa-solid fa-fire"
+                    ></i>
+
+                    <h3>
+                        Heater
+                    </h3>
+
+                    <h1 id="heaterStatus">
+                        OFF
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CONNECTION -->
+
+            <div class="card">
+
+                <i
+                    class="fa-solid fa-wifi"
+                ></i>
+
+                <h3>
+                    Connection
+                </h3>
+
+                <h1>
+                    Online
+                </h1>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             HEATER CONTROL (OLD BUTTON RENAMED)
+        ================================================== -->
+
+        <section class="control">
+
+            <div>
+
+                <h2>
+                    Heater Control
+                </h2>
+
+                <p>
+                    Control heater
+                </p>
+
+            </div>
+
+
+            <label class="switch">
+
+                <input
+                    id="heaterSwitch"
+                    type="checkbox"
+                >
+
+                <span class="slider"></span>
+
+            </label>
+
+        </section>
+
+
+
+        <!-- =================================================
+             BLOWER CONTROL (NEW BUTTON BELOW OLD)
+        ================================================== -->
+
+        <section class="control">
+
+            <div>
+
+                <h2>
+                    Blower Control
+                </h2>
+
+                <p>
+                    Control blower
+                </p>
+
+            </div>
+
+
+            <label class="switch">
+
+                <input
+                    id="blowerSwitch"
+                    type="checkbox"
+                >
+
+                <span class="slider"></span>
+
+            </label>
+
+        </section>
+
+
+
+        <!-- =================================================
+             CHARTS
+        ================================================== -->
+
+        <section class="chart-container">
+
+
+            <!-- TEMPERATURE CHART -->
+
+            <div class="chart-card">
+
+                <h2>
+                    <i class="fa-solid fa-temperature-half"></i>
+                    Temperature
+                </h2>
+
+                <canvas
+                    id="tempChart"
+                ></canvas>
+
+            </div>
+
+
+
+            <!-- HUMIDITY CHART -->
+
+            <div class="chart-card">
+
+                <h2>
+                    <i class="fa-solid fa-droplet"></i>
+                    Humidity
+                </h2>
+
+                <canvas
+                    id="humChart"
+                ></canvas>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             HISTORY DATA
+        ================================================== -->
+
+        <section class="history">
+
+
+            <!-- HISTORY HEADER -->
+
+            <div class="history-header">
+
+                <div>
+
+                    <h2>
+
+                        <i
+                            class="fa-solid fa-clock-rotate-left"
+                        ></i>
+
+                        History Data
+
+                    </h2>
+
+                    <p>
+                        Riwayat monitoring greenhouse
+                    </p>
+
+                </div>
+
+
+                <!-- DOWNLOAD EXCEL BUTTON -->
+
+                <div class="history-actions">
+
+    <button
+        id="downloadHistoryButton"
+        type="button"
+    >
+        <i class="fa-solid fa-file-excel"></i>
+
+        <span>
+            Download Excel
+        </span>
+    </button>
+
+
+    <button
+        id="resetHistoryButton"
+        type="button"
+    >
+        <i class="fa-solid fa-trash"></i>
+
+        <span>
+            Reset History
+        </span>
+    </button>
 
 </div>
 
-<div class="connection">
 
-<span class="dot"></span>
 
-Online
+            <!-- HISTORY TABLE -->
 
-</div>
+            <div class="history-table-wrapper">
 
-</header>
+                <table id="historyTable">
 
-    <!-- ================= CARD ================= -->
+                    <thead>
 
-    <section class="cards">
+                        <tr>
 
-        <div class="card">
+                            <th>
+                                Date
+                            </th>
 
-            <i class="fa-solid fa-temperature-half"></i>
+                            <th>
+                                Time
+                            </th>
 
-            <h3>Temperature</h3>
+                            <th>
+                                Temperature
+                            </th>
 
-            <h1 id="temp">0 °C</h1>
+                            <th>
+                                Humidity
+                            </th>
 
-        </div>
+                            <th>
+                                Blower
+                            </th>
 
-        <div class="card">
+                        </tr>
 
-            <i class="fa-solid fa-droplet"></i>
+                    </thead>
 
-            <h3>Humidity</h3>
 
-            <h1 id="hum">72%</h1>
+                    <tbody id="historyTableBody">
 
-        </div>
+                        <tr>
 
-        <div class="card">
+                            <td
+                                colspan="5"
+                            >
 
-            <i id="fanIcon" class="fa-solid fa-fan"></i>
+                                <div class="history-empty">
 
-            <h3>Blower</h3>
+                                    <i
+                                        class="fa-solid fa-database"
+                                    ></i>
 
-            <h1 id="blowerStatus">OFF</h1>
+                                    <p>
+                                        Belum ada data history
+                                    </p>
 
-        </div>
+                                </div>
 
-        <div class="card">
+                            </td>
 
-            <i class="fa-solid fa-wifi"></i>
+                        </tr>
 
-            <h3>Connection</h3>
+                    </tbody>
 
-            <h1>Online</h1>
+                </table>
 
-        </div>
+            </div>
 
-    </section>
+        </section>
 
-    <!-- ================= CONTROL ================= -->
 
-    <section class="control">
 
-        <h2>
+        <!-- =================================================
+             EVENT LOG
+        ================================================== -->
 
-            Relay Control
-
-        </h2>
-
-        <label class="switch">
-
-            <input id="relaySwitch" type="checkbox">
-
-            <span class="slider"></span>
-
-        </label>
-
-    </section>
-
-    <!-- ================= CHART ================= -->
-
-    <section class="chart-container">
-
-        <div class="chart-card">
+        <section class="log">
 
             <h2>
 
-                Temperature
+                <i
+                    class="fa-solid fa-list"
+                ></i>
+
+                Event Log
 
             </h2>
 
-            <canvas id="tempChart"></canvas>
+
+            <div id="eventLog">
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             LOGOUT
+        ================================================== -->
+
+        <div class="logout-container">
+
+            <button
+                id="logoutButton"
+                type="button"
+            >
+
+                <i
+                    class="fa-solid fa-right-from-bracket"
+                ></i>
+
+                <span>
+                    Logout
+                </span>
+
+            </button>
 
         </div>
 
-        <div class="chart-card">
 
-            <h2>
+    </div>
 
-                Humidity
+</main>
 
-            </h2>
 
-            <canvas id="humChart"></canvas>
 
-        </div>
+<!-- =====================================================
+     APPLICATION JAVASCRIPT
+====================================================== -->
 
-    </section>
+<script
+    type="module"
+    src="js/app.js?v=6"
+></script>
 
-    <!-- ================= LOG ================= -->
-
-    <section class="log">
-
-        <h2>
-
-            Event Log
-
-        </h2>
-
-        <div id="eventLog">
-
-        </div>
-
-    </section>
-
-    <script src="js/app.js"></script>
-
-</div>    
-
-<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
-<script src="js/mqtt.js"></script>
+<script>
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+            navigator.serviceWorker.register("./sw.js")
+                .then((registration) => {
+                    console.log(
+                        "Greenhouse PWA aktif:",
+                        registration.scope
+                    );
+                })
+                .catch((error) => {
+                    console.error(
+                        "PWA gagal diaktifkan:",
+                        error
+                    );
+                });
+        });
+    }
+</script>
 
 </body>
-
 </html>
