@@ -1733,9 +1733,9 @@ function startDatabaseListener() {
 
                 greenhouse.heater =
                     Boolean(
-                        data.heater !== undefined
-                            ? data.heater
-                            : data.relay
+                        data.relay !== undefined
+                            ? data.relay
+                            : data.heater
                     );
 
 
@@ -1808,8 +1808,8 @@ function startDatabaseListener() {
                         return;
                     }
 
-                    if (controlData.heater !== undefined || controlData.relay !== undefined) {
-                        const hVal = Boolean(controlData.heater !== undefined ? controlData.heater : controlData.relay);
+                    if (controlData.relay !== undefined || controlData.heater !== undefined) {
+                        const hVal = Boolean(controlData.relay !== undefined ? controlData.relay : controlData.heater);
                         if (heaterSwitch && !heaterSwitch.disabled) {
                             heaterSwitch.checked = hVal;
                         }
@@ -1890,7 +1890,7 @@ function stopDatabaseListener() {
 
 
 // =========================================================
-// 18. HEATER CONTROL (OLD BUTTON RENAMED)
+// 18. HEATER CONTROL (CONTROLS greenhouse/control/relay)
 // =========================================================
 
 heaterSwitch?.addEventListener(
@@ -1900,12 +1900,6 @@ heaterSwitch?.addEventListener(
         const newValue =
             heaterSwitch.checked;
 
-
-        const heaterRef =
-            ref(
-                database,
-                "greenhouse/control/heater"
-            );
 
         const relayRef =
             ref(
@@ -1920,14 +1914,14 @@ heaterSwitch?.addEventListener(
 
         try {
 
-            await Promise.all([
-                dbSet(heaterRef, newValue),
-                dbSet(relayRef, newValue)
-            ]);
+            await dbSet(
+                relayRef,
+                newValue
+            );
 
 
             addLog(
-                "Heater diubah menjadi " +
+                "Heater (Relay) diubah menjadi " +
                 (
                     newValue
                         ? "ON"
@@ -1937,7 +1931,7 @@ heaterSwitch?.addEventListener(
 
 
             console.log(
-                "Heater command:",
+                "Heater (Relay) command:",
                 newValue
             );
 
